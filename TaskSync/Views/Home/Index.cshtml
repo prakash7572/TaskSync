@@ -1,0 +1,242 @@
+﻿<!doctype html>
+<html lang="en" prefix="og: http://ogp.me/ns#">
+<head>
+    @section Scripts {
+        <script src="~/task/js/profile.js"></script>
+        <script src="~/js/combined_front.min166b.js"></script>
+        <script src="~/js/flatpickr.min166b.js"></script>
+        <script src="~/js/frontpage166b.js"></script>
+        <script src="~/js/jquery.magnific-popup.min.js"></script>
+    }
+    <link href="~/css/ace.css" rel="stylesheet" />
+    <link href="~/css/style166b.css" rel="stylesheet" />
+    <script>
+        var base_url = 'index.html';
+        var cdn_url = 'https://cdn.freedcamp.com/';
+        var f_show_login_popup = 0;
+        var err_message = '';
+        var correct_email;
+        var is_frontpage = 1;
+        var vz_cookie_name = 'fc_vz';
+        var front_b = 1;
+
+        var CKEDITOR_BASEPATH = 'https://cdn.freedcamp.com/thirdparty/ckeditor/';
+    </script>
+</head>
+<body id="front_b" class="">
+    <div class="whiteout"></div>
+    <div class="listViewPopup animatedPopup"></div>
+    <div class="kanbanViewPopup animatedPopup"></div>
+    <div id="alert_container" style="display:none; position:fixed; bottom:-5px; left:50%; margin-left:-215px; padding:20px 20px 5px 90px; overflow:auto; z-index:999999; width:350px; background:#991a1a url(../cdn.freedcamp.com/system/images/error.png) no-repeat 20px center; color:#fff; border:1px solid #881414; box-shadow: 0 0 18px 1px rgba(0,0,0,0.47), inset 0 0 0 1px rgba(255,255,255,0.6);"></div>
+    <div class="lighten"></div>
+    <div id="accept_cookies_banner" class="bg-neutral">
+        <p class="center m0 p2 white medium text-s">
+            Our website uses cookies. By continuing we assume your permission to deploy cookies, as detailed in our <a class="white underline" href="help_/tutorials/wiki/wiki_public/view/pAbab.html" target="_blank">privacy policy</a>.                    <a id="dismiss_cookies_banner" class="white underline" style="cursor: pointer">Dismiss</a>
+        </p>
+    </div>
+    <div id="hero">
+        <div class="section_inner relative">
+            <header>
+                <h1 id="logo">
+                    <a href="index.html" class="logo_link" title="Freedcamp - Free Effortless Collaboration for Teams">
+                        <img src="~/image/tasksync.png" style="height:90px" />
+                        <span>TaskSync</span>
+                    </a>
+                </h1>
+                <ul class="header_nav">
+                    <li class="login fkit_dropdown dropdown-single" data-dropdown-position-content="center top+20" data-dropdown-position-parent="center bottom" data-dropdown-callback="dropdownToggleCallback">
+                        <a href="#" class="btn btn-hover-neutral fkit_dropdown_activate">Login</a>
+                        <div class="login-container dropdown-list fkit_dropdown_content" style="margin-left: -41px;margin-top: 58px;">
+                            <div class="close_wrap">
+                                <svg class="login_logo">
+                                    <use width="124" height="32" xlink:href="#logo" />
+                                </svg>
+                                <div class="fkit_dropdown_close btn btn-default">Close</div>
+                            </div>
+                            <form id="login_form" onsubmit="return Login()" class="fkit_form" method="post" action="https://freedcamp.com/login">
+                                <fieldset>
+                                    <div class="group group_block">
+                                        <input id="login_username" type="email" placeholder="Email" name="Email" value=""
+                                               data-validate="required" data-validation-message="Email is required.">
+                                    </div>
+                                    <div class="group group_block">
+                                        <input id="login_password" type="password" name="Password" placeholder="Password"
+                                               data-validate="required" data-validation-message="Password is required."
+                                               autocomplete="off">
+                                    </div>
+                                    <div id="login_err_message" class="login_err_message fc_hide"></div>
+                                    <div class="group group_block">
+                                        <input type="submit" class="btn btn-positive" value="Login">
+                                    </div>
+                                    <div class="group group_block keeplogin">
+                                        <label for="remember_me" class="loggedin"><input type="checkbox" class="remember_me_chk" id="remember_me" name="" checked="checked"> Keep me logged in for 2 weeks</label>
+                                    </div>
+                                    <div class="group group_block forgot">
+                                        <a id="forgot_password" href="forgot_password.html">Forgot Password?</a>
+                                    </div>
+                                </fieldset>
+                            </form>
+                            <div class="or_div">
+                                <div class="text"><span>or login with</span></div>
+                                <div class="line">&nbsp;</div>
+                            </div>
+                            <div>
+                                <a class="google-btn nodblclick sign-in" rel="nofollow" href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code&amp;client_id=265055467442.apps.googleusercontent.com&amp;redirect_uri=https%3A%2F%2Ffreedcamp.com%2Fconnect%2Fgoogle%3Fhybrid%3D1%26hauth.done%3DGoogle&amp;scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&amp;access_type=offline&amp;state=HA-WVYFOL9UC0H23T7BQ65Z8ASEDIRG4JKPN1XM" title="Google">
+                                    <span>Google</span>
+                                </a>
+                            </div>
+                            <ul class="social-icons">
+                                <li rel="nofollow" class="facebook">
+                                    <a class="nodblclick" href="https://www.facebook.com/dialog/oauth?response_type=code&amp;client_id=135248593202597&amp;redirect_uri=https%3A%2F%2Ffreedcamp.com%2Fconnect%2Ffacebook%3Fhybrid%3D1%26hauth_done%3DFacebook&amp;scope=email&amp;state=HA-X5JBU10RD3L8KHQM9POV7WF64IGCYNSAE2ZT" title="Facebook">
+                                        <svg width="36px" height="36px">
+                                            <use x="0" y="0" xlink:href="#facebook-icon" />
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li rel="nofollow" class="twitter">
+                                    <a class="nodblclick" href="https://api.twitter.com/oauth/authenticate?oauth_token=IIQuBwAAAAABpMMMAAABj_jgKGQ" title="Twitter">
+                                        <svg width="36px" height="36px">
+                                            <use x="0" y="0" xlink:href="#twitter-icon" />
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li rel="nofollow" class="linkedin">
+                                    <a class="nodblclick" href="https://www.linkedin.com/oauth/v2/authorization?response_type=code&amp;client_id=75sxfeumx612zv&amp;redirect_uri=https%3A%2F%2Ffreedcamp.com%2Fconnect%2Flinkedin%3Fhybrid%3D1&amp;scope=r_liteprofile+r_emailaddress&amp;state=HA-PQN32F61OCSU8ZM9IVKBLG5E47AWRJHYTD0X" title="LinkedIn">
+                                        <svg width="36px" height="36px">
+                                            <use x="0" y="0" xlink:href="#linkedin-icon" />
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="register">
+                        <a href="#" class="btn go_to_signup btn-positive btn-hover-neutral">Get Started for Free</a>
+                    </li>
+                </ul>
+            </header>
+            <div id="register" class="col-6">
+                <div class="animate zoomIn">
+                    <h2 class="section_title">
+                        <span>The first</span><br />
+                        <b>truly intelligent</b><br />
+                        <span class="section_title_under">Task Management</span>
+                    </h2>
+                </div>
+                <form class="register_form fkit_form animate" method="post" autocomplete="off">
+                    <div class="signup_loader">
+                        <img class="loader_img" src="../cdn.freedcamp.com/images/ajax-loader.gif" />
+                    </div>
+                    <fieldset class="initial">
+                        <input style="display:none">
+                        <input type="password" style="display:none">
+                        <div class="group email_group">
+                            <div class="field email_field">
+                                <input class="input email" type="email" autocomplete="off" name="email" placeholder="Email Address" value="">
+                            </div>
+                            <button class="start_registration btn content-center btn-positive btn-l">Start Now!</button>
+                        </div>
+                        <p class="terms left">By clicking "Start Now!" you accept our <a target="_blank" href="help_/tutorials/wiki/wiki_public/view/tGeab.html" class="terms_link">Terms and Conditions</a></p>
+                    </fieldset>
+                    <fieldset class="tretiary align-center text-s">
+                        <ul class="social-icons">
+                            <li>
+                                <div class="or_text">or sign up with</div>
+                            </li>
+                            <li rel="nofollow">
+                                <a class="google-btn nodblclick sign-up" href="https://accounts.google.com/o/oauth2/v2/auth?response_type=code&amp;client_id=265055467442.apps.googleusercontent.com&amp;redirect_uri=https%3A%2F%2Ffreedcamp.com%2Fconnect%2Fgoogle%3Fhybrid%3D1%26hauth.done%3DGoogle&amp;scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&amp;access_type=offline&amp;state=HA-8NJL10OSME27KBXUQ4AI5D3WFPH9RV6YZCGT" title="Google">
+                                    <span>Google</span>
+                                </a>
+                            </li>
+                            <li rel="nofollow" class="facebook nodblclick">
+                                <a class="btn btn-clean" href="https://www.facebook.com/dialog/oauth?response_type=code&amp;client_id=135248593202597&amp;redirect_uri=https%3A%2F%2Ffreedcamp.com%2Fconnect%2Ffacebook%3Fhybrid%3D1%26hauth_done%3DFacebook&amp;scope=email&amp;state=HA-75CZ6AF2LPI3YVJ1OEUKHXMQWDR0NS9GT4B8" title="Facebook">
+                                    <svg width="16px" height="16px">
+                                        <use x="0" y="0" xlink:href="#facebook-logo" />
+                                    </svg>
+                                    <span>Facebook</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="fader-black"></div>
+        <div class="hero-image"></div>
+    </div>
+    <div id="companies" class="relative z2">
+        <div class="section_inner relative">
+            <h3 class="heading-s normal center">Trusted by millions of users worldwide:</h3>
+            <div class="flex items-center justify-center">
+                <ul class="companies list-reset flex items-center">
+                    <li class="mx3 flex items-center">
+                        <a href="https://jooble.org/" target="_blank">
+                            <svg width="92px" height="32px">
+                                <use x="0" y="0" xlink:href="cdn/fkit/svg/companies.svg#logo-jooble" />
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="mx3 flex items-center">
+                        <svg width="106px" height="26px">
+                            <use x="0" y="0" xlink:href="cdn/fkit/svg/companies.svg#logo-paypal" />
+                        </svg>
+                    </li>
+                    <li class="mx3 flex items-center">
+                        <svg width="92px" height="30px">
+                            <use x="0" y="0" xlink:href="cdn/fkit/svg/companies.svg#logo-google" />
+                        </svg>
+                    </li>
+                    <li class="mx3 flex items-center">
+                        <svg width="27px" height="32px">
+                            <use x="0" y="0" xlink:href="cdn/fkit/svg/companies.svg#logo-apple" />
+                        </svg>
+                    </li>
+                    <li class="mx3 flex items-center">
+                        <svg width="102px" height="20px">
+                            <use x="0" y="0" xlink:href="cdn/fkit/svg/companies.svg#logo-deloitte" />
+                        </svg>
+                    </li>
+                    <li class="mx3 flex items-center">
+                        <svg width="122px" height="23px">
+                            <use x="0" y="0" xlink:href="cdn/fkit/svg/companies.svg#logo-gettyimages" />
+                        </svg>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        var log_vz = "front_b";
+    </script>
+
+    <script>
+        var smth_wrong_detailed_str = "Something has gone wrong. Issue: ";
+        var smth_wrong_sorry_str = "We have been notified and will look into the problem. We apologize for any inconvenience.";
+        var cdn_front_url = "https://cdn.freedcamp.com/frontpage/v4/";
+        var yes_str = "Yes";
+        var no_str = "No";
+        var is_frontpage = 1;
+    </script>
+   
+
+    <script type="text/javascript">
+        gtag('event', 'abtest', { page: log_vz });
+        if (is_frontpage) {
+            fc.logEvent("front", log_vz + "_shown");
+        }
+    </script>
+    <script>
+        $(function () {
+            fc.handle_lgt_if_needed();
+            $("#dismiss_cookies_banner").click(function () {
+                fc.setCookie('f_accepted_cookies', 1);
+                $("#accept_cookies_banner").hide();
+            });
+            if (typeof fc.forbidDblClick === "function") {
+                // remove typeof check after live
+                fc.forbidDblClick(".nodblclick");
+            }
+        });
+    </script>
+</body>
+</html>
