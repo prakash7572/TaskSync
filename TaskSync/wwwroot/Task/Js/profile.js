@@ -1,4 +1,4 @@
-﻿var path = `/home/`
+﻿var url = `/home/`
 function Login() {
     var values = {};
     $.each($('#login_form').serializeArray(), function (i, field) {
@@ -6,17 +6,16 @@ function Login() {
     });
     $.ajax({
         type: "POST",
-        url: `${path}login`,
+        url: `${url}login`,
         data: values,
         dataType: "text",
         success: function (resultData) {
             let data = JSON.parse(resultData)
-            if (data[0].status == "SUCCESS") {
-                alert(data[0].message);
-                setTimeout(window.location.href = `${path}dashboard`,50000)
-                //window.location.href = `${path}dashboard`;
+            if (data.status == "SUCCESS") {
+                alert(data.message);
+                setTimeout(window.location.href = `${url}dashboard`,50000)
             } else { 
-                alert(data[0].message);
+                alert(data.message);
             }
         }
     }); 

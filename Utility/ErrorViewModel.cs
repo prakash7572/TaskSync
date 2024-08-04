@@ -1,4 +1,4 @@
-namespace TaskSync.Models
+namespace Utility
 {
     public class ErrorViewModel
     {

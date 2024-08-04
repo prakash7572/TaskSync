@@ -1,15 +1,14 @@
 using Microsoft.EntityFrameworkCore;
-using TaskSync.Helpher;
-using TaskSync.Interface;
-using TaskSync.Models;
+using Persistence;
+using Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<DBConnection>(options =>
+builder.Services.AddDbContext<Context>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
-builder.Services.AddTransient<IProfile, TaskSync.Service.Profile>();
+builder.Services.AddTransient<IService.IService, Service.Service>();
 builder.Services.AddTransient<DataResponse>();
 var app = builder.Build();
 
