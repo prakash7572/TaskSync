@@ -8,5 +8,7 @@ namespace Persistence
         public Context(DbContextOptions<Context> o) : base(o) { }
         public DbSet<Profile> Profiles { get; set; }
 
+        //CHANGE HERE BY VIJAY
+
     }
 }
