@@ -11,11 +11,11 @@ function Login() {
         dataType: "text",
         success: function (resultData) {
             let data = JSON.parse(resultData)
-            if (data.status == "SUCCESS") {
-                alert(data.message);
+            if (data.Status == "SUCCESS") {
+                alert(data.Message);
                 setTimeout(window.location.href = `${url}dashboard`,50000)
             } else { 
-                alert(data.message);
+                alert(data.Message);
             }
         }
     }); 

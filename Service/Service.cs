@@ -10,7 +10,7 @@ namespace Service
     public class Service : IService.IService
     {
         readonly Context _dbConnection;
-        public readonly DataResponse _response;
+        readonly DataResponse _response;
         public Service(Context dbConnection, DataResponse response)
         {
             _dbConnection = dbConnection;
@@ -18,20 +18,29 @@ namespace Service
         }
         public async Task<DataResponse> Login(Model.Account.Profile profile)
         {
-            var profiles = await _dbConnection.Profiles
+            try
+            {
+                var profiles = await _dbConnection.Profiles
                 .Where(x => x.Email == profile.Email && x.Password == profile.Password)
-                .SingleOrDefaultAsync();
-            if (profiles != null)
-            {
-                _response.Status = "SUCCESS";
-                _response.Message = "User Login Successfully !!";
+                .ToListAsync();
+                if (profiles != null)
+                {
+                    _response.Status = "SUCCESS";
+                    _response.Message = "User Login Successfully !!";
+                }
+                else
+                {
+                    _response.Status = "ERROR";
+                    _response.Message = "Invalid User !!";
+                }
+                return _response;
             }
-            else
+            catch (Exception)
             {
-                _response.Status = "ERROR";
-                _response.Message = "Invalid User !!";
+
+                throw;
             }
-            return _response;
+            
         }
 
         public void SP_Execute(Profile entity)
