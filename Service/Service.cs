@@ -37,7 +37,6 @@ namespace Service
             }
             catch (Exception)
             {
-
                 throw;
             }
             

@@ -6,11 +6,11 @@ using Model.Account;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Security.Claims;
+using System.Security.Principal;
 using Utility;
 
 namespace TaskSync.Controllers
 {
-    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -21,11 +21,12 @@ namespace TaskSync.Controllers
             _logger = logger;
             _profile = profile;
         }
-        [AllowAnonymous]
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
+        [HttpPost]
         public  async Task<IActionResult> Login(Profile profile)
         {
             try
@@ -33,7 +34,7 @@ namespace TaskSync.Controllers
                 if (ModelState.IsValid)
                 {
                     var claims = new List<Claim>();
-                    claims.Add(new Claim(ClaimTypes.Name, profile.Email, profile.Password));
+                    claims.Add(new Claim(ClaimTypes.Name, profile.Email == null ? "" : profile.Email, profile.Password));
                     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var principal = new ClaimsPrincipal(identity);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(principal));
@@ -52,7 +53,21 @@ namespace TaskSync.Controllers
             }
 
         }
-        
+
+        [HttpPost]
+        public async Task<IActionResult> LogOut()
+        {
+            try
+            {
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+          
+        }
         public IActionResult Dashboard()
         {
             return View();

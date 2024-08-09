@@ -12,7 +12,8 @@ namespace TaskSync.Controllers
     {
         private readonly IListItem _listItem;
         public TaskMasterController(IListItem listItem) => _listItem = listItem;
-        
+
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             List<StatusMaster> dyn = await _listItem.StatusMaster();

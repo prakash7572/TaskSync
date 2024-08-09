@@ -12,16 +12,15 @@ builder.Services.AddDbContext<Context>(options =>
 builder.Services.AddTransient<IService.IService, Service.Service>();
 builder.Services.AddScoped<IListItem, ListItem>();
 builder.Services.AddTransient<DataResponse>();
+builder.Services.AddMvc();
+
 //For login cookie
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(m => {
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+.AddCookie(m => {
     m.LoginPath = new PathString("/home/login");
     m.Cookie.Name = "TaskSync_Cookie";
 });
-
 var app = builder.Build();
-
-
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -34,8 +33,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 app.UseAuthorization();
+app.UseAuthentication();
+
 
 app.MapControllerRoute(
     name: "default",
