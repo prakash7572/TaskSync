@@ -1,110 +1,13 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+﻿
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <title>Layout with Sidebar, Header, and Footer</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 2; /* Ensure header is below the sidebar but above other elements */
-        }
-
-        .main-container {
-            display: flex;
-            flex: 1;
-            margin-top: 60px; /* Height of the header */
-            margin-bottom: 60px; /* Height of the footer */
-        }
-
-        .sidebar {
-            width: 250px;
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            z-index: 3; 
-        }
-
-       .sidebar h2 {
-           margin-top: 0;
-       }
-
-            .sidebar ul {
-                list-style-type: none;
-                padding: 0;
-            }
-
-                .sidebar ul li {
-                    margin: 20px 0;
-                }
-
-                    .sidebar ul li a {
-                        color: white;
-                        text-decoration: none;
-                        font-size: 18px;
-                    }
-
-                        .sidebar ul li a:hover {
-                            text-decoration: underline;
-                        }
-
-        .content {
-            margin-left: 250px; /* Width of the sidebar */
-            padding: 20px;
-            background-color: #f4f4f4;
-            flex-grow: 1;
-            min-height: calc(100vh - 120px); /* Adjust based on header and footer height */
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 20px;
-            width: 100%;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-            position: relative;
-            margin-top: auto;
-            z-index: 2; /* Ensure footer is below the sidebar but above other elements */
-        }
-
-        .sidebar i{
-            height:40px;
-            width:30px;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Website Header</h1>
-    </header>
-
+  @
     <div class="main-container">
         <div class="sidebar">
             <i class="fa fa-home" aria-hidden="true"></i>
-            <i class="fa fa-calendar"></i>
             <i class='fa fa-tasks'></i>
             <i class='fa fa-th-large'></i>
+            <i class="fa fa-calendar"></i>
             <i class='fa fa-align-left'></i>
             <ul>
                 <li><a href="#">Home</a></li>
@@ -120,8 +23,4 @@
         </div>
     </div>
 
-    <footer>
-        <p>Website Footer &copy; 2024</p>
-    </footer>
-</body>
-</html>
+
