@@ -8,19 +8,18 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TaskSync.styles.css" asp-append-version="true" />
-    <link href="~/css/ace.css" rel="stylesheet" />
-    <link href="~/css/style166b.css" rel="stylesheet" />
 </head>
 <body>
+    @{
+        Html.RenderPartial("/views/inner-header.cshtml");
+    };
     @RenderBody()
+    @{
+        Html.RenderPartial("/views/inner-footer.cshtml");
+    };
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/task/js/common.js"></script>
-    <script src="~/js/combined_front.min166b.js"></script>
-    <script src="~/js/flatpickr.min166b.js"></script>
-    <script src="~/js/frontpage166b.js"></script>
-    <script src="~/js/jquery.magnific-popup.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

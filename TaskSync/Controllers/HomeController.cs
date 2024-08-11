@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Model.Account;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Security.Claims;
-using System.Security.Principal;
 using Utility;
 
 namespace TaskSync.Controllers
@@ -21,11 +19,16 @@ namespace TaskSync.Controllers
             _logger = logger;
             _profile = profile;
         }
-        [HttpGet]
-        public IActionResult Index()
+        [HttpPost]
+        public async Task<IActionResult> Registration(Profile profile)
         {
-            return View();
+            DataResponse response = await _profile.Registration(profile);
+            return Content(JsonConvert.SerializeObject(response));
         }
+
+        [HttpGet]
+        public IActionResult Index() => View();
+
         [HttpPost]
         public  async Task<IActionResult> Login(Profile profile)
         {
@@ -68,14 +71,7 @@ namespace TaskSync.Controllers
             }
           
         }
-        public IActionResult Dashboard()
-        {
-            return View();
-        }
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        public IActionResult Dashboard() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

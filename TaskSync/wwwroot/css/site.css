@@ -72,3 +72,8 @@
     height: 40px;
     width: 38px;
 }
+#timer {
+    font-size: 1em;
+    color: red;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}

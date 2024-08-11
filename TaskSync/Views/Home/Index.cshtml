@@ -1,13 +1,5 @@
-﻿
-    @section Scripts {
-        <script src="~/task/js/profile.js"></script>
-        <script src="~/js/combined_front.min166b.js"></script>
-        <script src="~/js/flatpickr.min166b.js"></script>
-        <script src="~/js/frontpage166b.js"></script>
-        <script src="~/js/jquery.magnific-popup.min.js"></script>
-    }
-    <link href="~/css/ace.css" rel="stylesheet" />
-    <link href="~/css/style166b.css" rel="stylesheet" />
+﻿<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/task/js/profile.js"></script>
     <script>
         var is_frontpage = 1;
         var front_b = 1;
@@ -81,14 +73,16 @@
                 </div>
                 <form class="register_form fkit_form animate" method="post" autocomplete="off">
                     <fieldset class="initial">
-                        <input style="display:none">
-                        <input type="password" style="display:none">
-                        <div class="group email_group">
+                        <div class="group email_group gap-3">
                             <div class="field email_field">
-                                <input class="input email" type="email" autocomplete="off" name="email" placeholder="Email Address" value="">
+                                <input class="input email" type="email" autocomplete="off" name="Email" placeholder="Email Address" value="">
                             </div>
-                            <button class="start_registration btn content-center btn-positive btn-l">Start Now!</button>
-                        </div>
+                        <button class="start_registration btn content-center btn-positive btn-l" type="button" data-registration="true">Start Now!</button>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="text" name="Password" id="Password" placeholder="Password">
+                    </div>
+                    <div id="timer" data-timer>30</div>
                     </fieldset>
                 </form>
             </div>
@@ -109,7 +103,6 @@
     <script>
         var smth_wrong_detailed_str = "Something has gone wrong. Issue: ";
         var smth_wrong_sorry_str = "We have been notified and will look into the problem. We apologize for any inconvenience.";
-        var cdn_front_url = "https://cdn.freedcamp.com/frontpage/v4/";
         var yes_str = "Yes";
         var no_str = "No";
         var is_frontpage = 1;
@@ -119,17 +112,4 @@
         if (is_frontpage) {
             fc.logEvent("front", log_vz + "_shown");
         }
-    </script>
-    <script>
-        $(function () {
-            fc.handle_lgt_if_needed();
-            $("#dismiss_cookies_banner").click(function () {
-                fc.setCookie('f_accepted_cookies', 1);
-                $("#accept_cookies_banner").hide();
-            });
-            if (typeof fc.forbidDblClick === "function") {
-                // remove typeof check after live
-                fc.forbidDblClick(".nodblclick");
-            }
-        });
     </script>
