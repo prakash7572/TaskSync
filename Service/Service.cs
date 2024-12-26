@@ -1,9 +1,9 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Model.Account;
 using Persistence;
 using System.Data;
 using Utility;
+
 
 namespace Service
 {
@@ -27,7 +27,7 @@ namespace Service
                     _response.Message = "Invalid User !!";
                     return _response;
                 }
-                var existingProfile = await _dbConnection.Profiles.Where(x=>x.Email == profile.Email).ToListAsync();
+                var existingProfile = await _dbConnection.Profiles.Where(x => x.Email == profile.Email).ToListAsync();
                 if (existingProfile == null)
                 {
                     await _dbConnection.Profiles.AddAsync(profile);
@@ -54,25 +54,17 @@ namespace Service
             try
             {
                 var profiles = await _dbConnection.Profiles
-                .Where(x => x.Email == profile.Email && x.Password == profile.Password)
+                .Where(x => x.Email == profile.Email || x.Password == profile.Password)
                 .ToListAsync();
-                _response.Status = profiles != null ? "SUCCESS" : "ERROR";
-                _response.Message = profiles != null ? "User Login Successfully !!" : "Invalid User !!";
+                _response.Status = profiles.Count() != 0 ? "SUCCESS" : "ERROR";
+                _response.Message = profiles.Count() !=0 ? "User Login Successfully !!" : "Invalid User !!";
                 return _response;
             }
             catch (Exception)
             {
                 throw;
             }
-
         }
 
-
-        public void SP_Execute(Profile entity)
-        {
-            var nameParam = new SqlParameter("@Email", entity.Email);
-            var priceParam = new SqlParameter("@Password", entity.Password);
-            var data = _dbConnection.Database.ExecuteSqlRaw("SP_TASK_LOGIN @Email, @Password", nameParam, priceParam);
-        }
     }
 }

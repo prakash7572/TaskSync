@@ -29,26 +29,26 @@ namespace TaskSync.Controllers
         [HttpGet]
         public IActionResult Index() => View();
 
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public  async Task<IActionResult> Login(Profile profile)
+        public async Task<IActionResult> Login(Profile profile)
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    var claims = new List<Claim>();
-                    claims.Add(new Claim(ClaimTypes.Name, profile.Email == null ? "" : profile.Email, profile.Password));
-                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    var principal = new ClaimsPrincipal(identity);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(principal));
 
-                    DataResponse data = await _profile.Login(profile);
-                    return Content(JsonConvert.SerializeObject(data));
-                }
-                else
-                {
-                    return Content("All field required !!");
-                }
+                var claims = new List<Claim>();
+                claims.Add(new Claim(ClaimTypes.Name, profile.Email ?? string.Empty, profile.Password));
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(principal));
+
+                DataResponse data = await _profile.Login(profile);
+                return Content(JsonConvert.SerializeObject(data));
+
             }
             catch (Exception)
             {
@@ -69,14 +69,12 @@ namespace TaskSync.Controllers
             {
                 throw;
             }
-          
+
         }
-        public IActionResult Dashboard() => View();
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        public IActionResult Error() => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
     }
 }

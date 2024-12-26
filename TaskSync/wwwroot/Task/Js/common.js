@@ -1,4 +1,4 @@
-﻿// Function to generate a random password with mixed characters
+﻿// Function to generate a password with mixed characters
 function CreatePassword(length) {
     const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const lowercase = 'abcdefghijklmnopqrstuvwxyz';
@@ -22,92 +22,64 @@ function RandomNumber(length) {
     }
     return number;
 }
-//Email validation 
-function isValidEmail(email) {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailPattern.test(email);
-}
+//  Function to validate a field based on its data-validation attribute
+function validateInput($input) {
+    const validationType = $input.data('validation'); // Get the validation type.
+    const value = $input.val(); // Get the input value.
+    let isValid = true; // Default validity status.
 
-// Function to validate a field based on its data-validation attribute
-function validateField($field) {
-    var validation = $field.data('validation');
-    var value = $field.val();
-    var errorField = $('#' + $field.attr('id') + 'Error');
-    var isValid = true;
-    var errors = [];
-
-    // Remove the 'invalid' class if present
-    $field.removeClass('invalid');
-
-    // Split the validation rules
-    if (validation) {
-        var rules = validation.split(',');
-        rules.forEach(function (rule) {
-            var parts = rule.split(':');
-            var type = parts[0];
-            var param = parts[1];
-
-            switch (type) {
-                case 'required':
-                    if (!value) {
-                        errors.push('This field is required.');
-                        isValid = false;
-                    }
-                    break;
-                case 'minlength':
-                    if (value.length < parseInt(param)) {
-                        errors.push('Must be at least ' + param + ' characters long.');
-                        isValid = false;
-                    }
-                    break;
-                case 'min':
-                    if (parseInt(value) < parseInt(param)) {
-                        errors.push('Must be at least ' + param + '.');
-                        isValid = false;
-                    }
-                    break;
-                case 'email':
-                    var emailRegex = /\S+@\S+\.\S+/;
-                    if (!emailRegex.test(value)) {
-                        errors.push('Please enter a valid email address.');
-                        isValid = false;
-                    }
-                    break;
-            }
-        });
+    // Check validation type and set 'isValid' based on the input value.
+    switch (validationType) {
+        case "text":
+            isValid = /^[A-Za-z]+$/.test(value); // Only letters.
+            break;
+        case "email":
+            isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value); // Basic email format.
+            break;
+        case "number":
+            isValid = !isNaN(value) && !!value; // Must be a number and not empty.
+            break;
+        case "text&number":
+            isValid = !!value && isNaN(value); // Must not be a number.
+            break;
+        case "option":
+            isValid = value !== "0"; // Ensure a valid option is selected (not the default "Select").
+            break;
+        case "password":
+            // Password must be at least 8 characters long (adjust as needed).
+            isValid = value.length >= 8;
+            break;
     }
 
-    // Show errors or clear error message
-    if (isValid) {
-        errorField.text('');
-    } else {
-        errorField.text(errors.join(' '));
-        // Add the 'invalid' class to the field
-        $field.addClass('invalid');
-    }
+    $input.toggleClass('input-error', !isValid); // Toggle error class based on validity.
     return isValid;
 }
 
-// Function to validate the entire form
-function validateForm() {
-    var isValid = true;
-
-    // Validate each field
-    $('#dynamicForm').find('[data-validation]').each(function () {
-        if (!validateField($(this))) {
-            isValid = false;
+function validateForm(from) {
+    let isValid = true; // Default validity status.
+    // Validate each input field with a data-validation attribute wih form.
+    $(`#${from} [data-validation]`).each(function () {
+        if (!validateInput($(this))) {
+            isValid = false; // Update status if any field is invalid.
         }
     });
-
     return isValid;
 }
+// Attach validation functions to 'blur' and 'input' events for real-time validation.
+$('[data-validation]').on('blur input', function () {
+    validateInput($(this));
+});
+// End Function to validate a field based on its data-validation attribute
+
+
+
 //For user account
 function Response(resultData) {
     let data = JSON.parse(resultData)
     if (data.Status == "SUCCESS") {
         alert(data.Message);
-        setTimeout(window.location.href = `${url}dashboard`, 50000)
-        location.reload();
+        setTimeout(window.location.href = `/home/dashboard`, 50000)
+        //location.reload();
     } else {
         alert(data.Message);
         location.reload();

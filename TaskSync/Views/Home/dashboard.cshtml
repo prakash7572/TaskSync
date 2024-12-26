@@ -1,7 +1,89 @@
 ﻿    @{
     Layout = "/views/inner_layout.cshtml";
     }
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+      @*   <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Projects</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li>
+                    <span class="icon">📁</span>
+                    <span>Task Module</span>
+                </li>
+            </ul>
+            <h3>Conversations</h3>
+            <ul class="sidebar-menu">
+                <li>
+                    <span class="icon">💬</span>
+                    <span>Create Conversation</span>
+                </li>
+            </ul>
+        </aside>
+ *@
+        <!-- Main Content -->
+        <main class="main">
+            <header class="header">
+                <h1>Hola! <span>Take it easy, but take it.</span></h1>
+                <div class="header-actions">
+                    <button class="btn">Customize</button>
+                    <button class="btn">Manage System</button>
+                    <button class="btn btn-primary">Add Project</button>
+                </div>
+            </header>
+
+            <div class="dashboard">
+                <section class="tasks">
+                    <h2>Work</h2>
+                    <p>Get started by adding some tasks</p>
+                    <button class="btn btn-add-task">Add Task</button>
+                </section>
+                <section class="agenda">
+                    <h2>Agenda</h2>
+                    <div class="calendar">
+                        <div class="week-header">
+                            <button class="btn">Week</button>
+                            <button class="btn">Day</button>
+                        </div>
+                        <div class="days">
+                            <span>Sun 22</span>
+                            <span>Mon 23</span>
+                            <span>Tue 24</span>
+                            <span>Wed 25</span>
+                            <span class="selected">Thu 26</span>
+                            <span>Fri 27</span>
+                            <span>Sat 28</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".days span").forEach(day => {
+                day.addEventListener("click", () => {
+                    document.querySelectorAll(".days span").forEach(d => d.classList.remove("selected"));
+                    day.classList.add("selected");
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+   @*  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
   
     <div class="main-container">
@@ -23,6 +105,7 @@
             <h1>Main Content</h1>
             <p>This is the main content area. The sidebar extends over the header and footer.</p>
         </div>
-    </div>
+    </div> *@
+
 
 
