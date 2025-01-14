@@ -26,34 +26,13 @@ namespace TaskSync.Controllers
         [HttpGet]
         public IActionResult Index() => View();
 
-        //[TaskSync.Healpher.Authentication]
+        [TaskSync.Healpher.Authentication]
         public IActionResult Dashboard()
         {
-             GetPrivicy();
             return View();
         }
 
-        async Task GetPrivicy()
-        {
-            string apiUrl = "https://ipinfo.io/json"; 
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
-                    response.EnsureSuccessStatusCode();
-
-                    string responseBody = await response.Content.ReadAsStringAsync();
-
-                    var locationData = System.Text.Json.JsonSerializer.Deserialize<dynamic>(responseBody);
-                }
-                catch (Exception e)
-                {
-                    throw e;
-                }
-            }
-        }
-
+        
         [HttpPost]
         public async Task<IActionResult> Registration(Model.Model.Account.Profile profile)
         {
