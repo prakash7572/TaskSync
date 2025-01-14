@@ -1,14 +1,17 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Model.Account;
+using Model.Model.Account;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Security.Claims;
 using Utility;
+using System.Net.Http;
+using System.Text.Json;
 
 namespace TaskSync.Controllers
 {
+    //[TaskSync.Healpher.Authentication]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,43 +22,69 @@ namespace TaskSync.Controllers
             _logger = logger;
             _profile = profile;
         }
+
+        [HttpGet]
+        public IActionResult Index() => View();
+
+        //[TaskSync.Healpher.Authentication]
+        public IActionResult Dashboard()
+        {
+             GetPrivicy();
+            return View();
+        }
+
+        async Task GetPrivicy()
+        {
+            string apiUrl = "https://ipinfo.io/json"; 
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    response.EnsureSuccessStatusCode();
+
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    var locationData = System.Text.Json.JsonSerializer.Deserialize<dynamic>(responseBody);
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Registration(Profile profile)
+        public async Task<IActionResult> Registration(Model.Model.Account.Profile profile)
         {
             DataResponse response = await _profile.Registration(profile);
             return Content(JsonConvert.SerializeObject(response));
         }
 
-        [HttpGet]
-        public IActionResult Index() => View();
-
-        public IActionResult Dashboard()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Login(Profile profile)
+        public async Task<IActionResult> Login(Model.ViewModel.Account.Profile profile)
         {
             try
             {
+                var claims = new List<Claim> { new Claim(ClaimTypes.Name, profile.Email ?? string.Empty) };
+                var principal = new ClaimsPrincipal(new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme));
 
-                var claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.Name, profile.Email ?? string.Empty, profile.Password));
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var principal = new ClaimsPrincipal(identity);
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(principal));
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal,
+                    new AuthenticationProperties
+                    {
+                        IsPersistent = profile.RememberMe,
+                        ExpiresUtc = profile.RememberMe ? DateTimeOffset.UtcNow.AddDays(7) : (DateTimeOffset?)null
+                    });
 
-                DataResponse data = await _profile.Login(profile);
+                var data = await _profile.Login(profile);
                 return Content(JsonConvert.SerializeObject(data));
-
             }
-            catch (Exception)
+            catch
             {
                 return Content("Technical Error !!");
             }
-
         }
+
 
         [HttpPost]
         public async Task<IActionResult> LogOut()
@@ -69,9 +98,7 @@ namespace TaskSync.Controllers
             {
                 throw;
             }
-
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error() => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

@@ -1,4 +1,4 @@
-﻿using Model.Account;
+﻿using Model.ViewModel.Account;
 using Utility;
 
 namespace IService
@@ -6,7 +6,7 @@ namespace IService
 
     public interface IService
     {
-        Task<DataResponse> Registration(Profile profile);
+        Task<DataResponse> Registration(Model.Model.Account.Profile profile);
         Task<DataResponse> Login(Profile profile);
     }
 }

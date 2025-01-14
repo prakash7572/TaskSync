@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model.TaskMaster
+namespace Model.Model.TaskMaster
 {
     [Table("StatusMaster")]
     public class StatusMaster

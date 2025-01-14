@@ -7,8 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Utility;
 using IService;
-using Model.TaskMaster;
 using Microsoft.EntityFrameworkCore;
+using Model.Model.TaskMaster;
 namespace Service
 {
     public class ListItem : IListItem

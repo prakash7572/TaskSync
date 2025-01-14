@@ -5,15 +5,6 @@
 </style>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/task/js/profile.js"></script>
-<script>
-    var is_frontpage = 1;
-    var front_b = 1;
-</script>
-<div class="whiteout"></div>
-<div class="listViewPopup animatedPopup"></div>
-<div class="kanbanViewPopup animatedPopup"></div>
-<div id="alert_container" style="display:none; position:fixed; bottom:-5px; left:50%; margin-left:-215px; padding:20px 20px 5px 90px; overflow:auto; z-index:999999; width:350px; background:#991a1a url(../cdn.freedcamp.com/system/images/error.png) no-repeat 20px center; color:#fff; border:1px solid #881414; box-shadow: 0 0 18px 1px rgba(0,0,0,0.47), inset 0 0 0 1px rgba(255,255,255,0.6);"></div>
-<div class="lighten"></div>
 <div id="accept_cookies_banner" class="bg-neutral">
     <p class="center m0 p2 white medium text-s">
         Our website uses cookies. By continuing we assume your permission to deploy cookies.
@@ -98,19 +89,4 @@
         </div>
     </div>
 </div>
-<script>
-    var log_vz = "front_b";
-</script>
-<script>
-    var smth_wrong_detailed_str = "Something has gone wrong. Issue: ";
-    var smth_wrong_sorry_str = "We have been notified and will look into the problem. We apologize for any inconvenience.";
-    var yes_str = "Yes";
-    var no_str = "No";
-    var is_frontpage = 1;
-</script>
-<script type="text/javascript">
-    gtag('event', 'abtest', { page: log_vz });
-    if (is_frontpage) {
-        fc.logEvent("front", log_vz + "_shown");
-    }
-</script>
+ 

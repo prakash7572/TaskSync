@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Model.Account;
-using Model.TaskMaster;
+using Model.Model.Account;
+using Model.Model.TaskMaster;
 
 namespace Persistence
 {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Model.Account;
+using Model.Model.Account;
 using Persistence;
 using System.Data;
 using Utility;
@@ -49,7 +49,7 @@ namespace Service
             }
         }
 
-        public async Task<DataResponse> Login(Model.Account.Profile profile)
+        public async Task<DataResponse> Login(Model.ViewModel.Account.Profile profile)
         {
             try
             {
@@ -65,6 +65,5 @@ namespace Service
                 throw;
             }
         }
-
     }
 }

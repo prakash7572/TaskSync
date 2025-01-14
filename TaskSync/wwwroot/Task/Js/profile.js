@@ -19,6 +19,7 @@ $(function () {
         $(".login-container").toggle();
     });
     $('input[name="Password"],[data-timer]').hide();
+    $('#login_password').show();
     $("[data-registration='true']").on("click", function () {
         let randPwd = CreatePassword(8);
         $('input[name="Password"],[data-timer]').val(randPwd).show();
@@ -51,6 +52,7 @@ function Login() {
         $.each($('#login_form').serializeArray(), function (i, field) {
             values[field.name] = field.value;
         });
+        values.RememberMe = $("#remember_me").is(":checked");
         $.ajax({
             type: "POST",
             url: `${url}login`,

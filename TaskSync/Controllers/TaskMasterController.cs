@@ -1,13 +1,11 @@
 ﻿using IService;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Model.TaskMaster;
+using Model.Model.TaskMaster;
 using Newtonsoft.Json;
-using Service;
 
 namespace TaskSync.Controllers
 {
-    [Authorize]
+    //[TaskSync.Healpher.Authentication]
     public class TaskMasterController : Controller
     {
         private readonly IListItem _listItem;
