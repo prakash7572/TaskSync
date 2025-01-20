@@ -1,4 +1,46 @@
-﻿// Function to generate a password with mixed characters
+﻿var staticContent =
+    [{ direction: 'Left', action: 'Home', class: 'btn', text: '<i class="fa fa-magic"></i>&nbsp;Customize' },
+    { direction: 'Left', action: 'Home', class: 'btn btn-primary', text: '<i class="fa fa-gear"></i>&nbsp;Manage System' },
+    { direction: 'Left', action: 'Home', class: 'btn btn-success', text: '<i class="fa fa-plus"></i>&nbsp; Add Project' },
+    { direction: 'Left', action: 'Projects', class: 'btn', text: '<i class="fa fa-magic"></i>&nbsp;Customize' },
+    { direction: 'Left', action: 'Projects', class: 'btn btn-success', text: '<i class="fa fa-plus"></i>&nbsp; Add Project' },
+    { direction: 'Left', action: 'Tasks Board', class: 'btn btn-success', text: '<i class="fa fa-th-list"></i>&nbsp; Add Task' },
+    { direction: 'Left', action: 'Tasks Board', class: 'btn', text: '<i class="fa fa-arrows"></i>' },
+    { direction: 'Left', action: 'Tasks Board', class: 'btn', text: '<i class="fa fa-gear"></i>' },
+    { direction: 'Rigth', action: 'Tasks Board', class: 'btn', text: '<i class="fas fa-edit"></i>&nbsp;Bulk edit' },
+    { direction: 'Rigth', action: 'Tasks Board', class: 'btn', text: '<i class="fas fa-layer-group"></i>&nbsp;Group by' },
+    { direction: 'Rigth', action: 'Tasks Board', class: 'btn', text: '<i class="fa fa-search"></i>&nbsp;Searches' },
+    { direction: 'Rigth', action: 'Tasks Board', class: 'btn', text: '<i class="fa fa-filter"></i>&nbsp;Filter' },
+    { direction: 'Rigth', action: 'Calendar Board', class: 'btn', text: '<i class="fas fa-edit"></i>&nbsp;Bulk edit' },
+    { direction: 'Rigth', action: 'Calendar Board', class: 'btn', text: '<i class="fa fa-search"></i>&nbsp;Searches' },
+    { direction: 'Rigth', action: 'Calendar Board', class: 'btn', text: '<i class="fa fa-filter"></i>&nbsp;Filter' },
+    { direction: 'Left', action: 'Calendar Board', class: 'btn btn-success', text: '<i class="fa fa-plus"></i>&nbsp;Add Item' },
+    { direction: 'Left', action: 'Calendar Board', class: 'btn', text: '<i class="fa fa-gear"></i>' },
+    { direction: 'Left', action: 'Widgets Board', class: 'btn', text: '<i class="fa fa-gear"></i>' }];
+
+
+$("[data-action]").on("click", function () {
+    let data = staticContent.filter(x => x.action == $(this).attr("title"));
+    let html = ``;
+    $.each(data, (i, o) => {
+        if (o.direction == "Left")
+            html += `<button class="${o.class}">${o.text}</button>`;
+    });
+    $(".header-actions").empty().append(html);
+});
+//For user account
+function Response(resultData) {
+    let data = JSON.parse(resultData)
+    if (data.Status == "SUCCESS") {
+        alert(data.Message);
+        setTimeout(window.location.href = `/home/dashboard`, 50000)
+    } else {
+        alert(data.Message);
+        location.reload();
+    }
+}
+
+// Function to generate a password with mixed characters
 function CreatePassword(length) {
     const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const lowercase = 'abcdefghijklmnopqrstuvwxyz';
@@ -56,7 +98,7 @@ function validateInput($input) {
 }
 
 function validateForm(from) {
-    let isValid = true; // Default validity status.
+    let isValid = true;
     // Validate each input field with a data-validation attribute wih form.
     $(`#${from} [data-validation]`).each(function () {
         if (!validateInput($(this))) {
@@ -73,16 +115,5 @@ $('[data-validation]').on('blur input', function () {
 
 
 
-//For user account
-function Response(resultData) {
-    let data = JSON.parse(resultData)
-    if (data.Status == "SUCCESS") {
-        alert(data.Message);
-        setTimeout(window.location.href = `/home/dashboard`, 50000)
-        //location.reload();
-    } else {
-        alert(data.Message);
-        location.reload();
-    }
-}
+
 

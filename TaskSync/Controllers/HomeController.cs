@@ -1,13 +1,10 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Model.Model.Account;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Security.Claims;
 using Utility;
-using System.Net.Http;
-using System.Text.Json;
 
 namespace TaskSync.Controllers
 {

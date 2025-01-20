@@ -1,4 +1,4 @@
-/*.sidebar {
+.sidebar {
     width: 300px;
     height: 100vh;
     background-color: #2b2b3c;
@@ -93,7 +93,7 @@
     font-size: 16px;
     color: #fff;
     font-weight: bold;
-}*/
+}
 .inner-header {
     background-color: #ffffff;
     color: #3474e2;
